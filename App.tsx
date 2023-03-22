@@ -4,9 +4,7 @@ import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/
 import { Logs } from 'expo'
 import { ImageBackground, SafeAreaView, useColorScheme, View } from 'react-native';
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import {
-  Text,
-} from "react-native";
+import { Text } from "react-native";
 
 Logs.enableExpoCliLogging()
 

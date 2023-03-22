@@ -1,9 +1,7 @@
-module.exports = function (api) {
-  //api.cache(true);
-  const isWeb = api.caller(isTargetWeb);
-
+module.exports = (api) => {
+  api.cache(true)
   return {
-    presets: ['babel-preset-expo', 'module:metro-react-native-babel-preset'],
+    presets: ['babel-preset-expo'],
     plugins: [
       ['module:react-native-dotenv', {
         moduleName: "@env",
@@ -13,33 +11,23 @@ module.exports = function (api) {
         safe: false,
         allowUndefined: false
       }],
-      ["inline-dotenv", {
-        path: '.env',
-        systemVar: "overwrite" // See motdotla/dotenv for more options
-      }],
-      ["react-native-reanimated/plugin", {
-        "relativeSourceLocation": true
-      }], [
+      [
         'module-resolver',
         {
+          root: ['./src'],
           alias: {
-            'react-native-reanimated': '../src/index',
-            react: './node_modules/react',
-            'react-native': './node_modules/react-native',
-            '@babel': './node_modules/@babel',
-            'lodash.isequal': './node_modules/lodash.isequal',
-            'hoist-non-react-statics':
-              './node_modules/hoist-non-react-statics',
-            invariant: './node_modules/invariant',
-            'prop-types': './node_modules/prop-types',
+            assets: './assets',
+            constants: './src/utils/constants'
           },
+          extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json']
+        }
+      ],
+      '@babel/plugin-proposal-export-namespace-from',
+      [
+        'react-native-reanimated/plugin', {
+          relativeSourceLocation: true,
         },
       ]
-    ],
-
-  };
-};
-
-function isTargetWeb(caller) {
-  return caller && caller.name === 'babel-loader';
+    ]
+  }
 }
